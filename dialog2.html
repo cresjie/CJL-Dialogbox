@@ -1,0 +1,113 @@
+</html>
+<head>
+<style>
+body{padding:10px;
+background: #bbb}
+.cjl-db-container *{margin:0;padding:0;}
+.cjl-db-container >div{float:left;clear:left;}
+.cjl-db-container{
+	font-family:Verdana, Geneva, sans-serif;
+	position:relative;
+	background: #fff;
+	float: left;
+	box-shadow:1px 1px 10px;
+	
+}
+.cjl-db-header{
+	background:#4ba8fd;
+	width:100%;
+	cursor:move;
+}
+.cjl-db-header h3{
+	padding:10px;
+	font-weight: normal;
+	font-size: 18px
+}
+.cjl-db-close{
+	position:absolute;
+	right:0;
+	top:0;
+	padding:10px;
+	cursor:pointer;
+	background:none;
+	border: none;
+}
+.cjl-db-close:hover{color:#ff0000;}
+.cjl-db-content{
+	overflow-y:scroll;
+	width:400px;
+	height:100px;
+	padding:10px;
+}
+.cjl-db-footer{width:100%}
+.cjl-db-footer button{
+	background:#ddd;
+	border:none;
+	padding:5px;
+	cursor: pointer;
+	margin-left:5px;
+}
+.cjl-db-footer button:hover{box-shadow:0 0 5px}
+.cjl-db-container .type{
+	width:60px;
+	height:70px;
+	float: left
+}
+.type.warning{background:url(dialog-icons.png) 0 -175px}
+.type.error{background:url(dialog-icons.png) 0 -120px}
+.type.success{background:url(dialog-icons.png) 0 -55px}
+.type.ask{background:url(dialog-icons.png) 0 -235px}
+</style>
+<script src="jquery-1.10.2.min.js"></script>
+<script>
+
+(function($,w){
+	var f = {
+		cjlDialog:function(){}
+
+	},
+	template = {
+		$container:$("<div class='cjl-db-container'></div>"),
+		$header: $("<div class='cjl-db-header'></div>"),
+		$closeBtn: $('<button class="cjl-db-close db-wrapper">&#10006;</button>'),
+		$contentWrapper:$('<div class="cjl-db-content-wrapper"></div>'),
+		$contentType:$('<div class="type success"></div>'),
+		$footer:$('<div class="cjl-db-footer"></div>')
+
+
+	}
+
+
+
+
+
+
+})(jQuery,this);
+
+
+</script>
+
+
+
+</head>
+<body>
+<div class="cjl-db-container">
+	<div class="cjl-db-header">
+		<h3>This is a title</h3>
+		<button class="cjl-db-close db-wrapper">&#10006;</button>
+	</div>
+	<div class="cjl-db-content-wrapper">
+		<div class="type success"></div>
+		<div class="cjl-db-content">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et est nulla. Vestibulum ut eros massa. Aliquam commodo ipsum massa, vel blandit diam ultricies nec. Quisque luctus turpis sed ex interdum imperdiet. Duis volutpat justo dui, eget fermentum ligula sollicitudin in. Sed dui lectus, feugiat vitae mattis et, sollicitudin vel nisi. Cras pharetra, lorem sed imperdiet sollicitudin, augue nisl aliquam lorem, quis viverra turpis justo vel leo
+		</div>
+	</div>
+	<div class="cjl-db-footer">
+		<div class="cjl-db-footer-wrapper" style="padding:10px;float:right">
+			<button>adfs</button><button>123123</button>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
