@@ -11,6 +11,8 @@ background: #bbb}
 	background: #fff;
 	float: left;
 	box-shadow:1px 1px 10px;
+	z-index: 999;
+	display: none
 	
 }
 .cjl-db-header{
@@ -31,10 +33,11 @@ background: #bbb}
 	cursor:pointer;
 	background:none;
 	border: none;
+	outline:none;
 }
 .cjl-db-close:hover{color:#ff0000;}
 .cjl-db-content{
-	overflow-y:scroll;
+	overflow-y:auto;
 	width:400px;
 	height:100px;
 	padding:10px;
@@ -47,15 +50,17 @@ background: #bbb}
 	cursor: pointer;
 	margin-left:5px;
 }
+.cjl-db-footer-wrapper{padding:10px;float:right}
 .cjl-db-footer button:hover{box-shadow:0 0 5px}
 .cjl-db-container .type{
 	width:60px;
 	height:70px;
 	float: left
 }
-.type.warning{background:url(dialog-icons.png) 0 -175px}
-.type.error{background:url(dialog-icons.png) 0 -120px}
+.type.info{background:url(dialog-icons.png)}
 .type.success{background:url(dialog-icons.png) 0 -55px}
+.type.error{background:url(dialog-icons.png) 0 -120px}
+.type.warning{background:url(dialog-icons.png) 0 -175px}
 .type.ask{background:url(dialog-icons.png) 0 -235px}
 </style>
 <script src="jquery-1.10.2.min.js"></script>
@@ -63,24 +68,40 @@ background: #bbb}
 
 (function($,w){
 	var f = {
-		cjlDialog:function(){}
-
-	},
-	template = {
-		$container:$("<div class='cjl-db-container'></div>"),
-		$header: $("<div class='cjl-db-header'></div>"),
-		$closeBtn: $('<button class="cjl-db-close db-wrapper">&#10006;</button>'),
-		$contentWrapper:$('<div class="cjl-db-content-wrapper"></div>'),
-		$contentType:$('<div class="type success"></div>'),
-		$footer:$('<div class="cjl-db-footer"></div>')
-
-
-	}
+		cjlDialog:function(par){
+			var template = {
+				$container:$("<div class='cjl-db-container' id='"+$.cjlDialog_count+"'></div>"),
+				$header: $("<div class='cjl-db-header'></div>"),
+				$closeBtn: $('<button class="cjl-db-close">&#10006;</button>'),
+				$contentWrapper:$('<div class="cjl-db-content-wrapper"></div>'),
+				$contentType:$('<div class="type success"></div>'),
+				$footer:$('<div class="cjl-db-footer"></div>'),
+				$footerWrapper:$('<div class="cjl-db-footer-wrapper"></div>')
+			};
 
 
+			if(par.title){
+				template.$header.append('<h3>' + par.title +'</h3>');
+				template.$header.append(template.$closeBtn);
+			}
+			if(par.type){
+				template.$contentWrapper.append('<div class="type '+ par.type + '"></div>');
+			}
 
+			template.$contentWrapper.append('<div class="cjl-db-content">'+ par.content +'</div>');
 
+			template.$closeBtn.on('click',function(){$(this).parents('.cjl-db-container').fadeOut(function(){this.remove()}) });
+			template.$container.append([template.$header,template.$contentWrapper]);
+			$('body').append(template.$container);
+			template.$container.fadeIn();
+			$.cjlDialog_count++;
+			
+			
+		}
 
+	};
+
+	$.extend({cjlDialog:f.cjlDialog,cjlDialog_count:0});
 
 })(jQuery,this);
 
@@ -91,6 +112,7 @@ background: #bbb}
 
 </head>
 <body>
+	<!--
 <div class="cjl-db-container">
 	<div class="cjl-db-header">
 		<h3>This is a title</h3>
@@ -103,11 +125,11 @@ background: #bbb}
 		</div>
 	</div>
 	<div class="cjl-db-footer">
-		<div class="cjl-db-footer-wrapper" style="padding:10px;float:right">
+		<div class="cjl-db-footer-wrapper" >
 			<button>adfs</button><button>123123</button>
 		</div>
 	</div>
 </div>
-
+-->
 </body>
 </html>
