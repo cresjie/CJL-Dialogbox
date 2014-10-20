@@ -1,24 +1,34 @@
 </html>
 <head>
 <style>
-body{padding:10px;
-background: #bbb}
+*{padding:0;margin:0;}
+.cjl-db-overlay{
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	position:fixed;
+	background:rgba(0,0,0,0.66);
+	z-index: 9999999;	
+}
 .cjl-db-container *{margin:0;padding:0;}
 .cjl-db-container >div{float:left;clear:left;}
 .cjl-db-container{
 	font-family:Verdana, Geneva, sans-serif;
-	position:relative;
+	position:fixed;
 	background: #fff;
 	float: left;
 	box-shadow:1px 1px 10px;
-	z-index: 999;
+	z-index: 9999999;
+	max-width:100%;
+	max-height:100%;
 	display: none
 	
 }
 .cjl-db-header{
 	background:#4ba8fd;
 	width:100%;
-	cursor:move;
+	position:relative
 }
 .cjl-db-header h3{
 	padding:10px;
@@ -36,13 +46,16 @@ background: #bbb}
 	outline:none;
 }
 .cjl-db-close:hover{color:#ff0000;}
+.cjl-db-content-wrapper{background:#fff}
 .cjl-db-content{
 	overflow-y:auto;
-	width:400px;
-	height:100px;
-	padding:10px;
+	min-width:350px;
+	min-height:100px;
+	max-width:100%;
+	max-height:100%;
+	
 }
-.cjl-db-footer{width:100%}
+.cjl-db-footer{width:100%;background:#fff}
 .cjl-db-footer button{
 	background:#ddd;
 	border:none;
@@ -64,47 +77,56 @@ background: #bbb}
 .type.ask{background:url(dialog-icons.png) 0 -235px}
 </style>
 <script src="jquery-1.10.2.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="cjlDialog.js"></script>
 <script>
+/****
+title
+content
+type
+buttons array
+position
+onShow
+onClose
+transitionIn
+transitionOut
 
-(function($,w){
-	var f = {
-		cjlDialog:function(par){
-			var template = {
-				$container:$("<div class='cjl-db-container' id='"+$.cjlDialog_count+"'></div>"),
-				$header: $("<div class='cjl-db-header'></div>"),
-				$closeBtn: $('<button class="cjl-db-close">&#10006;</button>'),
-				$contentWrapper:$('<div class="cjl-db-content-wrapper"></div>'),
-				$contentType:$('<div class="type success"></div>'),
-				$footer:$('<div class="cjl-db-footer"></div>'),
-				$footerWrapper:$('<div class="cjl-db-footer-wrapper"></div>')
-			};
+***/
+var m;
 
-
-			if(par.title){
-				template.$header.append('<h3>' + par.title +'</h3>');
-				template.$header.append(template.$closeBtn);
-			}
-			if(par.type){
-				template.$contentWrapper.append('<div class="type '+ par.type + '"></div>');
-			}
-
-			template.$contentWrapper.append('<div class="cjl-db-content">'+ par.content +'</div>');
-
-			template.$closeBtn.on('click',function(){$(this).parents('.cjl-db-container').fadeOut(function(){this.remove()}) });
-			template.$container.append([template.$header,template.$contentWrapper]);
-			$('body').append(template.$container);
-			template.$container.fadeIn();
-			$.cjlDialog_count++;
-			
-			
-		}
-
-	};
-
-	$.extend({cjlDialog:f.cjlDialog,cjlDialog_count:0});
-
-})(jQuery,this);
-
+$(function(){
+	var content = 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+
+	'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+
+	'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+
+	'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+
+	'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+
+	'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+
+	'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '+'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ';
+	var yt = '<iframe width="560" height="315" src="https://www.youtube.com/embed/COwkCW38J54" frameborder="0" allowfullscreen></iframe>';
+	$.cjlDialog({
+		title:'this is a title',
+		content: yt,
+		contentCss:{width:560,height:315,padding:0},
+		overlay:true,
+		transitionIn:{style:'show',effect:'slide',direction:'down',easing:'easeOutBounce'},
+		transitionOut:{style:'effect',effect:'explode'},
+		//buttons:[{text:'button1'}],
+		onShow:function(){console.log(1)},
+		afterShow:function(){console.log(2)},
+		onClose:function(){console.log(3)},
+		afterClose:function(){console.log(4)}
+	});
+	
+	m = $('.test').cjlModal({
+		transitionIn:{style:'show',effect:'explode'},
+		transitionOut:{style:'hide',effect:'explode'},
+		onShow:function(){console.log('onshow')},
+		afterShow:function(){console.log('aftershow')},
+		onClose:function(){console.log('onclose')},
+		afterClose:function(){console.log('afterClose')}
+		
+	});
+})
 
 </script>
 
@@ -131,5 +153,28 @@ background: #bbb}
 	</div>
 </div>
 -->
+<span style="position:fixed;left:30px">asdf</span><br>
+<div class="test" style="width:300px;height:300px;background:green;display:none">llkdsfjl dskjflks jfdlkjsdf lasdfj l</div>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+<span>asdf</span><br>
+
 </body>
 </html>
