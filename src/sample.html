@@ -1,0 +1,396 @@
+<html>
+<head>
+<title>CJLDialogbox</title>
+<link rel="stylesheet" href="css/style2.css">
+<link rel="stylesheet" href="css/cjlDialog.css">
+<script src="js/jquery-1.10.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/cjlDialog-min.js"></script>
+<script src="js/script.js"></script>
+</head>
+<body>
+	<div class="main-container" id="main_container">
+		<div class="header">
+   		 <ul>
+          <li><a href="#basic_usage">Basic</a></li>
+          <li><a href="#API">API</a></li>
+          <li><a href="#advance_usage">Advance</a></li>
+          <li><a href="#modal_usage">Modal</a></li>
+       </ul>
+   	</div>
+   		<div class="content">
+   			<div class="title">
+   				<h1>CJLDialogBox</h1>
+   				<p>Light-weight,customizable and easy to use Modal/Dialog Box <br>
+              <a href="https://github.com/cresjie/CJL-Dialogbox" style="color:red">[Download (4kb)]</a>
+          </p>
+   			</div>
+   			<div class="installation">
+   				<h3>Installation</h3>
+   				<p class="sub-info">Requires jQuery 1.6+</p>
+   				<div class="codebox">
+   					&#60;<span class="link-tag">link</span> rel="stylesheet" href="cjlDialog.css"><br>
+   					&#60;<span class="script-tag">script</span> src="jquery-1.10.2.min.js"> &#60;<span class="script-tag">/script</span>><br>
+   					&#60;<span class="script-tag">script</span> src="cjlDialog.js"> &#60;<span class="script-tag">/script</span>>
+   				</div>
+   			</div>
+   			<div class="wrapper" id="basic_usage">
+   				<h3 class="cat-title">Basic Usage</h3>
+   				<div class="inner-wrapper">
+   					<div class="inner-title"><h3>Simple/Plain DialogBox</h3><a href="#" id="basic_simple" class="demo-btn">DEMO</a></div>
+   					<div class="codebox pre-wrap">
+&#60;<span class="script-tag">script</span>>
+   	$.cjlDialog({
+   		<span class="obj-prop">title</span>:'myTitle',
+   		<span class="obj-prop">content</span>:'Lorem ipsum'
+   	});
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+
+   				<div class="inner-wrapper">
+   					<div class="inner-title"><h3>DialogBox with Type</h3><a href="#" id ="basic_type" class="demo-btn">DEMO</a></div>
+   					<div class="codebox pre-wrap">
+&#60;<span class="script-tag">script</span>>
+$.cjlDialog({
+   		<span class="obj-prop">title</span>:'myTitle',
+   		<span class="obj-prop">content</span>:'Lorem ipsum',
+   		<span class="obj-prop">overlay</span>:true,
+   		<span class="obj-prop">type</span>:' <select id="basic_type_s"><option value="info">info</option>
+   													<option value="success">success</option> 
+   													<option value="error">error</option> 
+   													<option value="warning">warning</option>
+   													<option value="ask">ask</option> 
+   									</select> '
+   	});
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+
+   				<div class="inner-wrapper">
+   					<div class="inner-title"><h3>With imaga & embed Video</h3><a href="#" id="basic_img"class="demo-btn" style="right:80px">Image</a>
+              <a href="#" id="basic_video"class="demo-btn">Video</a></div>
+   					<div class="codebox pre-wrap">
+&#60;<span class="script-tag">script</span>>
+$.cjlDialog({
+   		<span class="obj-prop">title</span>:'myTitle',
+   		<span class="obj-prop">content</span>:'&#60;img src="sample.jpg" width=600 height=450>',
+		<span class="obj-prop">contentCss</span>:{ width:600, height:450 },
+		<span class="obj-prop">overlay</span>:true
+ });
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+
+   			</div>
+
+   			<div class="wrapper api" id="API">
+   				<h3 class="cat-title">API</h3>
+   				<h5 class="cat-title2">Options & Callbacks</h5>
+   				<div class="inner-wrapper">
+   					<ul>
+   						<li>title <span class="arg-type">[String] required</span>
+   							<div class="explain">Sets the title of the dialogbox</div>
+   						</li>
+   						<li>content <span class="arg-type">[String] required</span>
+   							<div class="explain">Content of dialogbox</div>
+   						</li>
+   						<li>type <span class="arg-type">[String]<span>
+   							<div class="explain">Alert type: info, success, error, warning, ask</div>
+   						</li>
+   						<li>contentCss <span class="arg-type">[ Object {width:350,height:100,padding:20} ]</span>
+   							<div class="explain">Sets the content style</div>
+   						</li>
+   						<li>overlay <span class="arg-type">[boolean:false]</span>
+   							<div class="explain">If true, a backdrop will be added</div>
+   						</li>
+   						<li>position <span class="arg-type">[Object:{top:n,left:n}] or [function($container)]</span>
+   							<div class="explain">Sets the container's Location (by default, the position uses a function type)<br>
+   								if Object, property top and left will sets the container's location<br>
+   								if function, the main container's jquery object will be pass, for you to customize
+   							</div>
+   						</li>
+   						<li>buttons <span class="arg-type">[ Array:[] ]</span>
+   							<div class="explain">buttons is an array of Object,commonly with property of text,attr and on (the on events..like onclick,onmouseenter,etc)<br>
+   								See the advance section for an example..
+   							</div>
+   						<li>transitionIn <span class="arg-type">[ Object: {style:'fadeIn'} ] or [function($container,afterShow)]</span>
+   							<div class="explain">In customizing the transition, the <span style="color:red">style</span> property is a requierd one.<br>
+   								<span style="color:red">Style</span> property should be a valid animation style, ex. (fadeIn,fadeOut,show,slideDown,etc),you can also set any animation properties like duration,effect,easing,etc..<br>example (transitionIn:{style:'slideDown',duration:1000,easing:'easeOutBounce'} ) <br><br>
+   								if <font color="#1AAA14">function</font>, it will pass the container jquery object and afterShow method<br>
+   								<font color="red">Note:</font> Don't forget to call the afterShow() argument.
+   							</div>
+   						</li>
+   						<li>transitionOut <span class="arg-type">[ Object: {style:'fadeOut'} ] or [ function($container,afterClose) ]</span>
+   							<div class="explain">See transitionIn..<br>See Advance Usage..</div>
+   						</li>
+   						<li>onShow <span class="arg-type">[ function($container) ]</span>
+   							<div class="explain">Triggers before show... You can just ignore the $container if you want to.</div>
+   						</li>
+   						<li>afterShow <span class="arg-type">[ function($container) ]</span>
+   							<div class="explain">Triggers after the container is showed</div>
+   						</li>
+   						<li>onClose <span class="arg-type">[ function($container) ]</span>
+   							<div class="explain">Triggers before the container is being close</div>
+   						</li>
+   						<li>afterClose <span class="arg-type">[ function($container) ]</span>
+   							<div class="explain">Triggers after the container is close</div>
+   						</li>
+   					</ul>
+   				</div>
+   			</div>
+
+   			<div class="wrapper" id="advance_usage">
+   				<h3 class="cat-title">Advance Usage</h3>
+   				<div class="inner-wrapper">
+   					<div class="inner-title"><h3>Position</h3><a href="#" id="advance_position"class="demo-btn">DEMO</a></div>
+   					<div class="codebox pre-wrap">
+&#60;<span class="script-tag">script</span>>
+	$.cjlDialog({
+		<span class="obj-prop">title</span>:'myTitle',
+		<span class="obj-prop">content</span>:'Lorem ipsum',
+		<span class="obj-prop">position</span>:{top:0,left:500}
+	});
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+
+   				<div class="inner-wrapper">
+   					<div class="inner-title"><h3>Buttons</h3><a href="#" id="advance_buttons"class="demo-btn">DEMO</a></div>
+   					<div class="codebox pre-wrap">
+&#60;<span class="script-tag">script</span>>
+	$.cjlDialog({
+		<span class="obj-prop">title</span>:'myTitle',
+		<span class="obj-prop">content</span>:'Lorem ipsum',
+		<span class="obj-prop">buttons</span>:[{
+			<span class="obj-prop2">text</span>:'Click Me',
+			<span class="obj-prop2">attr</span>: { id:'btn1', class:'btn' },
+			<span class="obj-prop2">on</span>:{click: function(e){ alert('You Clicked Me :)') } }
+			}, <font color="#bbb">//end button1</font>
+
+			<span class="obj-prop2">text</span>:'Hover Me',
+			<span class="obj-prop2">attr</span>: { id:'btn2', class:'btn' },
+			<span class="obj-prop2">on</span>:{mouseenter: function(e){ alert('Mouse enter') } }
+			}, <font color="#bbb">//end button2</font>
+		]
+	});
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+
+   				<div class="inner-wrapper">
+   					<div class="inner-title"><h3>Transitions</h3><a href="#" id="advance_transitions"class="demo-btn">DEMO</a></div>
+   					<div class="codebox pre-wrap">
+ &#60;<span class="script-tag">script</span>>
+	$.cjlDialog({
+		<span class="obj-prop">title</span>:'myTitle',
+		<span class="obj-prop">content</span>:'Lorem ipsum',
+		<span class="obj-prop">transitionIn</span>: {style:' <select id="advance_transition_s_transitionIn_style">
+        																<option value="fadeIn">fadeIn</option>
+																		<option value='slideDown'>slideDown</option>
+																		<option value='show'>show</option>
+	</select> ', duration: <input id="advance_transition_s_transitionIn_duration" type='number' value=400>}
+    		<span class="obj-prop">transitionOut</span>: {style:'<select id="advance_transition_s_transitionOut_style">
+            														<option value="fadeOut">fadeOut</option>
+																		<option value='slideUp'>slideUp</option>
+																		<option value='hide'>hide</option>
+	</select> ', duration: <input id="advance_transition_s_transitionOut_duration"type='number' value=400>}
+	});
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+				
+                <div class="inner-wrapper">
+   					<div class="inner-title"><h3>Transitions with jQueryUI Effects</h3><a href="#" id="transitions_ui_effect"class="demo-btn">DEMO</a></div>
+   					<div class="codebox pre-wrap">
+ &#60;<span class="script-tag">script</span>>
+	$.cjlDialog({
+		<span class="obj-prop">title</span>:'myTitle',
+		<span class="obj-prop">content</span>:'Lorem ipsum',
+		<span class="obj-prop">transitionIn</span>: {style:' <select id="transition_transIn_style_s"><option value='show'>show</option>
+        															<option value="fadeIn">fadeIn</option>
+																		<option value='slideDown'>slideDown</option>
+																		
+	</select> '<span id="transition_transIn_effect_prop">,  effect:'<select id="transition_transIn_effect_s"><option value="blind">blind</option>
+   									 <option value="bounce">bounce</option>
+                                     <option value="clip">clip</option>
+                                     <option value="drop">drop</option>
+    								<option value="explode">explode</option>
+                                    <option value="fold">fold</option>
+                                    <option value="highlight">highlight</option>
+                                    <option value="puff">puff</option>
+                                    <option value="pulsate">pulsate</option>
+                                    <option value="scale">scale</option>
+    								<option value="shake">shake</option>
+                                    <option value="size">size</option>
+                                    <option value="slide">slide</option>
+    
+    </select>'<span id="transition_transIn_direction_prop"></span>, direction:'<select id="transition_transIn_direction_s">
+                                    						<option value="up">up</option>
+                                                            <option value="right">right</option>
+                                                            <option value="down">down</option>
+                                                            <option value="left">left</option>
+                                    </select><select id="transition_transIn_direction2_s">
+                                    						<option value="horizontal">horizontal</option>
+                                                            <option value="vertical">vertical</option>
+                                    
+                                    </select>'</span>, easing:'<select id="transition_transIn_easing_s"><option value="linear">linear</option>
+    							<option value="swing">swing</option>
+                                <option value="easeInQuad">easeInQuad</option>
+                                <option value="easeOutQuad">easeOutQuad</option>
+                                <option value="easeInOutQuad">easeInOutQuad</option>
+                                <option value="easeInCubic">easeInCubic</option>
+                                <option value="easeOutCubic">easeOutCubic</option>
+                                <option value="easeInOutCubic">easeInOutCubic</option>
+                                <option value="easeInQuart">easeInQuart</option>
+                                <option value="easeOutQuart">easeOutQuart</option>
+                                <option value="easeInOutQuart">easeInOutQuart</option>
+                                <option value="easeInQuint">easeInQuint</option>
+                                <option value="easeOutQuint">easeOutQuint</option>
+                                <option value="easeInOutQuint">easeInOutQuint</option>
+                                <option value="easeInExpo">easeInExpo</option>
+                                <option value="easeOutExpo">easeOutExpo</option>
+                                <option value="easeInOutExpo">easeInOutExpo</option>
+                                <option value="easeInSine">easeInSine</option>
+                                <option value="easeOutSine">easeOutSine</option>
+                                <option value="easeInOutSine">easeInOutSine</option>
+                                <option value="easeInCirc">easeInCirc</option>
+                                <option value="easeOutCirc">easeOutCirc</option>
+                                <option value="easeInOutCirc">easeInOutCirc</option>
+                                <option value="easeInElastic">easeInElastic</option>
+                                <option value="easeOutElastic">easeOutElastic</option>
+                                <option value="easeInOutElastic">easeInOutElastic</option>
+                                <option value="easeInBack">easeInBack</option>
+                                <option value="easeOutBack">easeOutBack</option>
+                                <option value="easeInOutBack">easeInOutBack</option>
+                                <option value="easeInBounce">easeInBounce</option>
+                                <option value="easeOutBounce">easeOutBounce</option>
+                                <option value="easeInOutBounce">easeInOutBounce</option>
+    
+    
+    </select>', duration: <input id="transition_transIn_duration_s"type='number' value=400>}
+    		<span class="obj-prop">transitionOut</span>: {style:'<select id="transition_transOut_style_s"><option value='hide'>hide</option>
+            															<option value="fadeOut">fadeOut</option>
+																		<option value='slideUp'>slideUp</option>
+																		
+	</select> '<span id="transition_transOut_effect_prop">, effect:'<select id="transition_transOut_effect_s">	<option value="blind">blind</option>
+   									 <option value="bounce">bounce</option>
+                                     <option value="clip">clip</option>
+                                     <option value="drop">drop</option>
+    								<option value="explode">explode</option>
+                                    <option value="fold">fold</option>
+                                    <option value="highlight">highlight</option>
+                                    <option value="puff">puff</option>
+                                    <option value="pulsate">pulsate</option>
+                                    <option value="scale">scale</option>
+    								<option value="shake">shake</option>
+                                    <option value="size">size</option>
+                                    <option value="slide">slide</option>
+                                    
+                                    </select>'</span><span id="transition_transOut_direction_prop">, direction:'<select id="transition_transOut_direction_s">
+                                    						<option value="top">top</option>
+                                                            <option value="right">right</option>
+                                                            <option value="down">down</option>
+                                                            <option value="left">left</option>
+                                    </select><select id="transition_transOut_direction2_s">
+                                    						<option value="horizontal">horizontal</option>
+                                                            <option value="vertical">vertical</option>
+                                    
+                                    </select>'</span>, easing:'<select id="transition_transOut_easing_s"><option value="linear">linear</option>
+    							<option value="swing">swing</option>
+                                <option value="easeInQuad">easeInQuad</option>
+                                <option value="easeOutQuad">easeOutQuad</option>
+                                <option value="easeInOutQuad">easeInOutQuad</option>
+                                <option value="easeInCubic">easeInCubic</option>
+                                <option value="easeOutCubic">easeOutCubic</option>
+                                <option value="easeInOutCubic">easeInOutCubic</option>
+                                <option value="easeInQuart">easeInQuart</option>
+                                <option value="easeOutQuart">easeOutQuart</option>
+                                <option value="easeInOutQuart">easeInOutQuart</option>
+                                <option value="easeInQuint">easeInQuint</option>
+                                <option value="easeOutQuint">easeOutQuint</option>
+                                <option value="easeInOutQuint">easeInOutQuint</option>
+                                <option value="easeInExpo">easeInExpo</option>
+                                <option value="easeOutExpo">easeOutExpo</option>
+                                <option value="easeInOutExpo">easeInOutExpo</option>
+                                <option value="easeInSine">easeInSine</option>
+                                <option value="easeOutSine">easeOutSine</option>
+                                <option value="easeInOutSine">easeInOutSine</option>
+                                <option value="easeInCirc">easeInCirc</option>
+                                <option value="easeOutCirc">easeOutCirc</option>
+                                <option value="easeInOutCirc">easeInOutCirc</option>
+                                <option value="easeInElastic">easeInElastic</option>
+                                <option value="easeOutElastic">easeOutElastic</option>
+                                <option value="easeInOutElastic">easeInOutElastic</option>
+                                <option value="easeInBack">easeInBack</option>
+                                <option value="easeOutBack">easeOutBack</option>
+                                <option value="easeInOutBack">easeInOutBack</option>
+                                <option value="easeInBounce">easeInBounce</option>
+                                <option value="easeOutBounce">easeOutBounce</option>
+                                <option value="easeInOutBounce">easeInOutBounce</option>
+                                </select>', duration: <input id="transition_transOut_duration_s" type='number' value=400>}
+	}); <font color="#bbb">//direction,easing,duration are optional
+    	     //you can use any valid animation properties</font>
+&#60;<span class="script-tag">/script</span>>
+   					</div>
+   				</div>
+
+   			</div><!-- /advance usage-->
+		
+        	<div class="wrapper" id="modal_usage">
+            	<div class="title">
+                	<h1>Modal</h1>
+                    <p>It's not just a dialogbox, but can also be a modal. $.cjlDialog and $(el).cjlModal uses the same functionality (except for title & content property)</p>
+                    <div class="inner-wrapper">
+                    	<h3 class="cat-title">Public Methods</h3>
+                        <ul>
+                        	<li>open()</li>
+                        	<li>close()</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="inner-wrapper">
+                    	<div class="inner-title"><h3>HTML</h3></div>
+                        <div class="codebox pre-wrap">
+&#60;div id="myModal">
+	&#60;h1>myModal Title&#60;/h1>
+	&#60;div>Lorem ipsum....&#60;/div>
+&#60;/div>                                              
+                        </div>
+                    </div>
+                    
+                    <div class="inner-wrapper">
+                    	<div class="inner-title"><h3>Javascript</h3><a href="#" id="modal_demo"class="demo-btn">DEMO</a></div>
+                        <div class="codebox pre-wrap">
+&#60;<span class="script-tag">script</span>>
+	<span class="js-var">var</span> myModal;  <font color="#bbb">// for global use</font>
+    $(document).ready(function(e){
+    
+    	myModal = $('#myModal').cjlModal({
+        			<span class="obj-prop">transitionIn:</span>{style:'show', effect:'explode'}
+                	});	 <font color="#bbb">// with transitionIn explode and fadeOut transitionOut(default)
+                    		//you can now use the myModal.open() and myModal.close()
+                    </font>
+                
+    });
+&#60;<span class="script-tag">/script</span>>  
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> <!--/Modal-->
+            
+   		</div> <!---/div.content-->
+	</div>
+
+  <div id="myModal" style="display:none">
+    <h1>Lorem Ipsum</h1>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum dapibus est, in porta diam condimentum et. Mauris scelerisque lorem turpis, eget luctus enim varius sit amet. Nullam auctor nunc nec lacus dictum, et congue ex viverra. In venenatis vehicula placerat. Maecenas non lorem nunc. Donec convallis erat ut augue vehicula dictum. In mollis nulla dictum felis ultrices, euismod mattis tellus iaculis. Suspendisse euismod porttitor tempus. Donec blandit nisl sed ornare semper. Aliquam semper, massa quis vestibulum pretium, dolor sem tempus orci, eget feugiat arcu mi eu enim. Sed posuere vulputate nisi sed commodo. Vestibulum imperdiet ultrices nibh, in efficitur arcu tempor in. Duis at ornare tortor.
+    </div>
+  </div>
+
+  <a href="#main_container" class="back-to-top"></a>
+
+<body>
+</html>

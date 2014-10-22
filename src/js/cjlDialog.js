@@ -4,7 +4,7 @@
 	var AbstractModal = function(par){
 		var emptyF = function(){};	
 		var defaults = {
-					contentCss:{width:350,height:100,padding:20},
+					contentCss:{width:350,height:250,padding:20},
 					containerCss:{'z-index':9999999,position:'fixed'},
 					onShow:emptyF,
 					onClose:emptyF,
@@ -12,7 +12,7 @@
 					afterClose:emptyF,
 					overlay:false,
 					transitionIn:{style:'fadeIn'},
-					transitionOut:{style:'fadeOut'},
+					transitionOut:{style:'fadeOut'}
 		};
 		var template = {
 				$container:$("<div class='cjl-db-container' id='cjl_db_container_"+$.cjlDialog_count+"'></div>"),
@@ -26,11 +26,11 @@
 				$overlay:$('<div class="cjl-db-overlay"></div>')
 		};
 		var addGist = function(){
-						if(par.title){
+						
 							template.$header.append('<h3>' + par.title +'</h3>');
 							template.$header.append(template.$closeBtn);
 							
-						}
+						
 						if(par.type){
 							template.$contentWrapper.append(template.$contentType.addClass(par.type).css('width',60));
 						}
@@ -80,20 +80,24 @@
 							var transIn = defaults.transitionIn;
 								transIn.mode = 'show';
 								transIn.complete = defaults.afterShow;
-							template.$container[defaults.transitionIn.style](transIn);
+							if(!template.$container[defaults.transitionIn.style])
+								defaults.transitionIn.style = 'fadeIn';
+							template.$container[defaults.transitionIn.style](transIn).attr('data-cjlDB-status','open');
 						}
 		}//end showContainer
 		var closeAnimation = function(callback){
-							defaults.onClose(template.$container); //calling callback
+							defaults.onClose(template.$container); //calling onClose callback
 							
 							if(typeof defaults.transitionOut == 'function')
-								defaults.transitionOut(template.$container,private.close);
+								defaults.transitionOut(template.$container.attr('data-cjlDB-status','close'),remove);
 							else if(typeof defaults.transitionOut == 'object'){
 								var transOut = defaults.transitionOut;
 									transOut.mode = 'hide';
 									transOut.complete = callback;
-									
-								template.$container[defaults.transitionOut.style](transOut);
+								if(!template.$container[defaults.transitionOut.style]) //check if function exist
+									defaults.transitionOut.style = 'fadeOut';		//sets to default
+
+								template.$container[defaults.transitionOut.style](transOut).attr('data-cjlDB-status','close');
 								
 							}
 			};
@@ -123,15 +127,15 @@
 	}
 	
 	var centerLocation = function($el){
-			var left = ($(window).outerWidth()/2) - ($el.outerWidth()/2),
-				top = ($(window).outerHeight()/2) - ($el.outerHeight()/2);
+			var left = (window.innerWidth/2) - ($el.outerWidth()/2),
+				top = (window.innerHeight/2) - ($el.outerHeight()/2);
 			
 			return {top:top,left:left};
 		}
 	var cjlDialog = function(par){
 		var modal = new AbstractModal(par);
 	
-			modal.addGist();
+			modal.addGist(); 
 			modal.addCloseEvent(modal.remove);
 			
 			if(par.overlay)
@@ -144,18 +148,23 @@
 				
 	}
 	$.extend({cjlDialog:cjlDialog,cjlDialog_count:0,centerLocation:centerLocation});
-	$.fn.cjlModal = function(par){
+	$.fn.cjlModal = function(par){ 
+		par.overlay = (typeof par.overlay === "undefined")?true:par.overlay;
 		var modal = new AbstractModal(par);
 			modal.template.$container = this;
 			
 		//public method
 		this.open = function(){
-			if(par.overlay)
-				$('body').append(modal.template.$overlay);
+			if(par.overlay){
+				modal.addCloseEvent(function(){modal.template.$overlay.remove();modal.defaults.afterClose()});
+				$('body').prepend(modal.template.$overlay.attr('z-index',999));
+			}
 			modal.positionContainer();
-			modal.showContainer();	
+			modal.showContainer();
+			return this;
 		};
-		this.close = function(){modal.closeAnimation(modal.defaults.afterClose);}
+		this.close = function(){modal.closeAnimation(modal.defaults.afterClose); return this}
+		
 		return this;
 	};
 })(jQuery,this);
