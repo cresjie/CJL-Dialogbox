@@ -72,6 +72,12 @@
 							template.$container.css($.centerLocation(template.$container));
 		}
 		var showContainer = function(){
+
+						if(defaults.overlay){
+							$('html').css('overflow','hidden');
+						}
+
+
 						template.$container.css(defaults.containerCss);
 						defaults.onShow(template.$container); //calling callback
 						
@@ -87,6 +93,11 @@
 						}
 		}//end showContainer
 		var closeAnimation = function(callback){
+
+							if(defaults.overlay){
+								$('html').css('overflow','auto');
+							}
+							
 							defaults.onClose(template.$container); //calling onClose callback
 							
 							if(typeof defaults.transitionOut == 'function')
