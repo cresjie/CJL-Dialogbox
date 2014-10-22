@@ -11,6 +11,7 @@
 					afterShow:emptyF,
 					afterClose:emptyF,
 					overlay:false,
+					overlayOnClickClose:true,
 					transitionIn:{style:'fadeIn'},
 					transitionOut:{style:'fadeOut'}
 		};
@@ -105,7 +106,9 @@
 		var addCloseEvent = function(callback){
 						var c = function(){closeAnimation(callback)};
 						template.$closeBtn.on('click',c);
-						template.$overlay.on('click',c);
+						if(defaults.overlayOnClickClose){
+							template.$overlay.on('click',c);
+						}
 		}//end addCloseEvent
 		var remove = function(){
 						template.$overlay.remove();
