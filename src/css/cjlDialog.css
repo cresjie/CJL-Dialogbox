@@ -67,6 +67,7 @@
 	height:70px;
 	float: left
 }
+.ui-draggable .cjl-db-header{cursor:move}
 .type.info{background:url(dialog-icons.png)}
 .type.success{background:url(dialog-icons.png) 0 -55px}
 .type.error{background:url(dialog-icons.png) 0 -120px}

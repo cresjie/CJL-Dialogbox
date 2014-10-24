@@ -93,16 +93,17 @@ a{
 /*******Demon ****/
 #transition_transIn_direction2_s{display: none}
 #transition_transOut_direction2_s{display: none}
-#myModal{
+#myModal,#myModal2{
 	background:#fff;
 	width:300;
 	
 	padding:10px;
 }
-#myModal div{
+#myModal div,,#myModal2 div{
 	overflow: auto;
 	height:255;
 }
+#myModal2 a{color:red;font-size: 12px}
 /******CodeBox ****/
 .codebox{
 	border:1px solid #bbb;

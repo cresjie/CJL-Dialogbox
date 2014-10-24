@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="css/cjlDialog.css">
 <script src="js/jquery-1.10.1.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
-<script src="js/cjlDialog-min.js"></script>
+<script src="js/cjlDialog.js"></script>
 <script src="js/script.js"></script>
 </head>
 <body>
@@ -143,12 +143,13 @@ $.cjlDialog({
    			<div class="wrapper" id="advance_usage">
    				<h3 class="cat-title">Advance Usage</h3>
    				<div class="inner-wrapper">
-   					<div class="inner-title"><h3>Position</h3><a href="#" id="advance_position"class="demo-btn">DEMO</a></div>
+   					<div class="inner-title"><h3>Position & Draggable</h3><a href="#" id="advance_position"class="demo-btn">DEMO</a></div>
    					<div class="codebox pre-wrap">
 &#60;<span class="script-tag">script</span>>
 	$.cjlDialog({
 		<span class="obj-prop">title</span>:'myTitle',
 		<span class="obj-prop">content</span>:'Lorem ipsum',
+		<span class="obj-prop">draggable</span>:true,
 		<span class="obj-prop">position</span>:{top:0,left:500}
 	});
 &#60;<span class="script-tag">/script</span>>
@@ -225,7 +226,7 @@ $.cjlDialog({
                                     <option value="size">size</option>
                                     <option value="slide">slide</option>
     
-    </select>'<span id="transition_transIn_direction_prop"></span>, direction:'<select id="transition_transIn_direction_s">
+    </select>'</span><span id="transition_transIn_direction_prop">, direction:'<select id="transition_transIn_direction_s">
                                     						<option value="up">up</option>
                                                             <option value="right">right</option>
                                                             <option value="down">down</option>
@@ -340,8 +341,11 @@ $.cjlDialog({
         	<div class="wrapper" id="modal_usage">
             	<div class="title">
                 	<h1>Modal</h1>
-                    <p>It's not just a dialogbox, but can also be a modal. $.cjlDialog and $(el).cjlModal uses the same functionality (except for title & content property)</p>
+                    <p>It's not just a dialogbox, but can also be a modal. $.cjlDialog and $(el).cjlModal uses the same functionality (except for title & content property)<br>
+                      there are <font color="blue">2 techniques</font> in using this modal.</p>
                     <div class="inner-wrapper">
+                      <h3 class="cat-title">1st Technique</h3>
+                        <p>By Javascript Object Instance</p>
                     	<h3 class="cat-title">Public Methods</h3>
                         <ul>
                         	<li>open()</li>
@@ -378,6 +382,46 @@ $.cjlDialog({
                     </div>
                     
                 </div>
+                <div class="inner-wrapper">
+                  <h3 class="cat-title">2nd Technique</h3>
+                    <p>Just Create an HTML element (no javascript required)<br></p><br>
+                    <ul>
+                      <li>To open
+                        <div class="explain">Just create an element with <font color="blue">data-cjlmodal</font> attribute sets to value open and the <font color="blue">href</font> attribute that would point to the modal's id. An optional attribute
+                          <font color="blue">data-cjlmodal-opt</font> that serves as the options for the modal.</div>
+                      </li>
+
+                      <li>To close
+                        <div class="explain">
+                            Just create an element with <font color="blue">data-cjlmodal</font> attribute sets to close.(Should be the child of the modal)
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+
+                <div class="inner-wrapper">
+                    <div class="inner-title"><h3>HTML (the painless way)</h3>
+                      <a href="#myModal2" class="demo-btn" data-cjlmodal="open" data-cjlmodal-opt="{
+                      transitionIn:{ style:'show',effect:'bounce'},
+                      transitionOut:{style:'hide',effect:'shake'}
+                    }">OPEN</a>
+                    </div>
+
+                    <div class="codebox pre-wrap">
+&#60;a <font color="blue">href</font>="#myModal" <font color="blue">data-cjlmodal</font>="open" <font color="blue">data-cjlmodal-opt</font>="{
+        transitionIn:{ style:'show', effect:'bounce'},
+        transitionOut:{ style:'hide', effect:'shake'}
+      }">OPEN&#60;/a> 
+      <font color="#bbb">&#60;!---opens the modal with the bounce transitionIn and shake as transitionOut--></font>
+
+&#60;div id="myModal" style="display:none">
+  &#60;h1> Lorem Ipsum &#60;button <font color="blue">data-cjlmodal</font>="close">Close&#60;/button> &#60;/h1>
+  &#60;div>Lorem ipsum dolor sit amet......&#60;/div>
+
+&#60;/div>
+                    </div>
+                </div>
+
             </div> <!--/Modal-->
             
    		</div> <!---/div.content-->
@@ -389,8 +433,13 @@ $.cjlDialog({
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum dapibus est, in porta diam condimentum et. Mauris scelerisque lorem turpis, eget luctus enim varius sit amet. Nullam auctor nunc nec lacus dictum, et congue ex viverra. In venenatis vehicula placerat. Maecenas non lorem nunc. Donec convallis erat ut augue vehicula dictum. In mollis nulla dictum felis ultrices, euismod mattis tellus iaculis. Suspendisse euismod porttitor tempus. Donec blandit nisl sed ornare semper. Aliquam semper, massa quis vestibulum pretium, dolor sem tempus orci, eget feugiat arcu mi eu enim. Sed posuere vulputate nisi sed commodo. Vestibulum imperdiet ultrices nibh, in efficitur arcu tempor in. Duis at ornare tortor.
     </div>
   </div>
-
+  <div id="myModal2" style="display:none">
+    <h1>Lorem Ipsum <a href="#" data-cjlmodal="close">close</a></h1>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum dapibus est, in porta diam condimentum et. Mauris scelerisque lorem turpis, eget luctus enim varius sit amet. Nullam auctor nunc nec lacus dictum, et congue ex viverra. In venenatis vehicula placerat. Maecenas non lorem nunc. Donec convallis erat ut augue vehicula dictum. In mollis nulla dictum felis ultrices, euismod mattis tellus iaculis. Suspendisse euismod porttitor tempus. Donec blandit nisl sed ornare semper. Aliquam semper, massa quis vestibulum pretium, dolor sem tempus orci, eget feugiat arcu mi eu enim. Sed posuere vulputate nisi sed commodo. Vestibulum imperdiet ultrices nibh, in efficitur arcu tempor in. Duis at ornare tortor.
+    </div>
+  </div>
   <a href="#main_container" class="back-to-top"></a>
-
+  
 <body>
 </html>

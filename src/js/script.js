@@ -19,18 +19,18 @@ $(function(){
 
 		$('#advance_position').click(function(){
 			this.innerHTML = 'Click Again';
-			$.cjlDialog({title:title,content:content,position:function($container){
+			$.cjlDialog({title:title,content:content,draggable:true,position:function($container){
 					var top = Math.random()*(window.innerHeight-$container.outerHeight()),
 						left = Math.random()*(window.innerWidth-$container.outerWidth());
 						$container.css({top:top,left:left});
 			} });	
 		});
 		$('#advance_buttons').click(function(){
-			$.cjlDialog({title:'Buttons',content:content,type:'info',
+			$.cjlDialog({title:'Buttons',content:'Are you sure you want to delete files?',type:'ask',
 			buttons:[
-				{text:'Click Me',
-				attr:{id:'btn1',class:'btn'},
-				on:{click:function(){alert('You Clicked me')}}
+				{text:'Yes',
+				attr:{id:'btn1',class:'btn','data-cjlmodal':'close'},
+				on:{click:function(){alert('Files deleted')}}
 				},
 				{text:'Hover Me',
 				attr:{id:'btn2',class:'btn'},
