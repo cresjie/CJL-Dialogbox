@@ -1,4 +1,4 @@
-// JavaScript Document
+//CJLDialogBox by Cres Jie Labasano  under MIT License site: http://cresjie.16mb.com
 (function($,w){
 	
 	var AbstractModal = function(par){
@@ -10,7 +10,7 @@
 					content:n,
 					type:n,
 					buttons:n,
-					position:n,
+					position:'center',
 					contentCss:{width:350,height:250,padding:20},
 					containerCss:{'z-index':9999999,position:'fixed'},
 					onShow:emptyF,
@@ -75,8 +75,10 @@
 						if(defaults.position){
 							if(typeof defaults.position == 'object')
 								template.$container.css(defaults.position);
-							else if(typeof par.position == 'function')
+							else if(typeof defaults.position == 'function')
 								defaults.position(template.$container);
+							else if(defaults.position == 'center')
+								template.$container.css($.centerLocation(template.$container));
 						}
 						else
 							template.$container.css($.centerLocation(template.$container));
@@ -85,6 +87,9 @@
 
 						if(defaults.overlay){
 							$('html').css('overflow','hidden');
+						}
+						if(defaults.position == 'center'){
+							$(window).on('resize',positionContainer);
 						}
 
 						$.cjlDialog_current.push(this); //saves a global copy
@@ -173,13 +178,16 @@
 		var close = function(){
 			closeAnimation(function(){
 				if(defaults.overlay){
-								$('html').css('overflow','auto');
-								template.$overlay.remove();
-							}
-							if(privates.modalType != 'modal')
-								template.$container.remove();
+					$('html').css('overflow','auto');
+					template.$overlay.remove();
+				}
+				if(defaults.position == 'center'){
+					$(window).off('resize',positionContainer);
+				}
+				if(privates.modalType != 'modal')
+					template.$container.remove();
 							
-							defaults.afterClose();
+				defaults.afterClose();
 			});
 		}
 		var options = function(opt){
